@@ -1,13 +1,20 @@
 import React , {Component} from "react";
 import fetcher from "../Fetcher/index";
 import { FetchConfig } from "../Fetcher/config";
+import Menu, { HomePages } from './Menu';
+import Action from '../redux/actions';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 
+import {
+    Redirect
+  } from "react-router-dom";
+
 type LoginStateItem = {
     email: string,
-    password: string
+    password: string,
+    isAuth: boolean
 }
 
 export type AuthState = {
@@ -20,34 +27,46 @@ export default class Login extends Component<{}, LoginStateItem> {
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            isAuth: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-    }
 
-    componentDidMount(){
         document.title = "Login"
+    }
+    
+    redirect(){
+        if(this.state.isAuth === true){
+            return (
+                <Redirect to = "/dashboard"/>
+            )
+        }
     }
 
     handleSubmit(event: React.FormEvent){
         event.preventDefault();
         let {email, password} = this.state;
         const Fetcher = new fetcher();
-        Fetcher.post(`https://${FetchConfig.domain}/api/users/login`, "none", {
+        Fetcher.post(`api/users/login`, "none", {
             email: email,
             password: password
         }).then(response => {
             if(response.status > 199 && response.status < 400){
-                // this.props.handleSuccessfulAdmin(response.data);
-                alert("OK")
+                this.setState({
+                    isAuth: true
+                })
+                new Action().add({
+                    token: FetchConfig.key
+                })
+                this.redirect();
+                localStorage.setItem("user_id", response.data._id);
             }
         })
         .catch(error => {
             alert(error)
         })
-        
     }
     handleChange(event: { target: HTMLInputElement }){
         switch(event.target.name){
@@ -66,6 +85,9 @@ export default class Login extends Component<{}, LoginStateItem> {
         }
     }
     render(){
+        if(this.state.isAuth) {
+            return this.redirect();
+        };
         return (
             <div className="form form__auth block__centered">
                 <div className="form__image">
@@ -99,6 +121,7 @@ export default class Login extends Component<{}, LoginStateItem> {
                         Log in
                     </button>
                 </form>
+                <Menu mode = {HomePages.LOGIN}/>
             </div>
         )
     }

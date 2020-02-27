@@ -1,17 +1,16 @@
 import React , {Component} from "react";
 import fetcher from "../Fetcher/index";
-import { FetchConfig } from "../Fetcher/config";
-
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import Menu, { HomePages } from './Menu';
 
-interface LoginStateItem {
+interface SignUpStateItem {
     email: string,
     password: string,
     name: string
 }
 
-export default class Login extends Component<{}, LoginStateItem> {
+export default class SignUp extends Component<{}, SignUpStateItem> {
     constructor(props:any){
         super(props);
 
@@ -21,6 +20,8 @@ export default class Login extends Component<{}, LoginStateItem> {
             name: ""
         }
 
+        document.title = "Sign Up"
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -29,7 +30,7 @@ export default class Login extends Component<{}, LoginStateItem> {
         event.preventDefault();
         let {email, password} = this.state;
         const Fetcher = new fetcher();
-        Fetcher.post(`https://${FetchConfig.domain}/api/users`, "auth", {
+        Fetcher.post(`api/users`, "auth", {
             email: email,
             password: password
         }).then(response => {
@@ -107,6 +108,7 @@ export default class Login extends Component<{}, LoginStateItem> {
                         Sign Up
                     </button>
                 </form>
+                <Menu mode = { HomePages.SIGNUP } />
             </div>
         )
     }

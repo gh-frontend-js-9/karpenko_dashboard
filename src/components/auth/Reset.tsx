@@ -1,6 +1,6 @@
 import React , {Component} from "react";
 import fetcher from "../Fetcher/index";
-import { FetchConfig } from "../Fetcher/config";
+import Menu, { HomePages } from './Menu';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
@@ -29,7 +29,7 @@ export default class Login extends Component<{}, LoginStateItem> {
         event.preventDefault();
         let {email, password} = this.state;
         const Fetcher = new fetcher();
-        Fetcher.post(`https://${FetchConfig.domain}/api/users`, "auth", {
+        Fetcher.post(`api/users`, "auth", {
             email: email,
             password: password
         }).then(response => {
@@ -68,6 +68,7 @@ export default class Login extends Component<{}, LoginStateItem> {
     render(){
         return (
             <div className="form form__auth block__centered">
+
                 <div className="form__image">
                     <FontAwesomeIcon
                         icon={faUserCircle}
@@ -89,6 +90,7 @@ export default class Login extends Component<{}, LoginStateItem> {
                         type="password" 
                         name="confirmationPassword"
                         placeholder="Name"
+                        autoComplete = ""
                         value={this.state.confirmationPassword}
                         onChange={this.handleChange}
                     />
@@ -107,6 +109,7 @@ export default class Login extends Component<{}, LoginStateItem> {
                         Reset
                     </button>
                 </form>
+                <Menu mode = {HomePages.RESET}/>
             </div>
         )
     }
