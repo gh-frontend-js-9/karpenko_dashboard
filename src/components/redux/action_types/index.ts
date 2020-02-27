@@ -1,4 +1,4 @@
 export enum ActionType {
     ADD = "ADD",
-    DELETE = "DELETE"
+    CHANGE_DASHBOARD_PAGE = "CHANGE_DASHBOARD_PAGE"
 }
