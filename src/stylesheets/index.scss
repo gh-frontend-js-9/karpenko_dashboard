@@ -1,0 +1,25 @@
+$font-stack: -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+
+$font_base: 1.1rem;
+$font_header: 1.5rem;
+$font_subheader: 1.35rem;
+
+$base_background: #2E3040;
+$base_blue: #2090E9;
+$input_field_bg: #3E4156;
+$icon_color: #7B7F91;
+
+@import './services/normilizer.scss';
+@import './services/media.scss';
+@import './services/animations.scss';
+@import './main_content/bar.scss';
+@import './main_content/box.scss';
+@import './main_content/form.scss';
+@import './main_content/input.scss';
+@import './services/link.scss';
+@import './main_content/main_content.scss';
+@import './services/modal_window.scss';
+@import './main_content/preloader.scss';
+@import './main_content/progress_bar.scss';
+@import './main_content/table.scss';
+@import './services/text.scss';
