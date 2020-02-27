@@ -29,13 +29,13 @@ export default class Fetcher{
     get(path: string, mode: string){
         return axios({
             method: 'GET',
-            url: path,
+            url: `https://${FetchConfig.domain}/${path}`,
             headers: this.token(mode)
         })
     }
     post(path: string, mode: string, data: any){
         return axios({
-            url: path,
+            url: `https://${FetchConfig.domain}/${path}`,
             method: 'POST',
             headers: this.token(mode),
             data: JSON.stringify(data)
@@ -43,13 +43,13 @@ export default class Fetcher{
     }
     delete(path: string, mode: string, params?: any){
         return axios({
-            url: path,
+            url: `https://${FetchConfig.domain}/${path}`,
             method: 'DELETE'
         })
     }
     put(path: string, mode: string, params: any){
         return axios({
-            url: path,
+            url: `https://${FetchConfig.domain}/${path}`,
             headers: this.token(mode),
             data: JSON.stringify(params)
         })
