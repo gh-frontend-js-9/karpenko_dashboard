@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch, faBell, faChevronDown, faPlus, faHome, faBars, faChartLine, faEnvelope, faUserFriends} from "@fortawesome/free-solid-svg-icons";
+import Actions from '../redux/actions';
+import { Pages, DashboardState } from '../Dashboard';
 
 // Dashboard header
 export class Header extends Component{
+
     render(){
         const base_class:string = "bar-top__user_bar__item";
         return (
@@ -40,19 +43,74 @@ export class Header extends Component{
 }
 
 // Dashboard side nav-menu
-export class SideBar extends Component {
-    list_item(icon:any, id:string){
+export class SideBar extends Component<{}, DashboardState> {
+
+    constructor(props:any){
+        super(props);
+
+        new Actions().change_dashboard_page({
+            page: Pages.PROJECTS
+        })
+
+        this.state = {
+            page: Pages.PROJECTS
+        }
+
+        localStorage.setItem("dashboard_page", Pages.PROJECTS);
+    }
+
+    convertStringToPages(key:string){
+        switch(key){
+            case "projects":
+                return Pages.PROJECTS
+            case "messages":
+                return Pages.MESSAGES
+            case "statistics":
+                return Pages.STATISTICS
+            case "home":
+                return Pages.HOME
+            case "users":
+                return Pages.USERS
+        }
+    }
+
+    changeDashboardState(page: Pages){
+        console.log(this.state.page)
+        switch(page){
+            case Pages.PROJECTS:
+                this.setState({
+                    page: Pages.PROJECTS
+                })
+                break;
+            case Pages.MESSAGES:
+                this.setState({
+                    page: Pages.MESSAGES
+                })
+                break;
+            default:
+                this.setState({
+                    page: Pages.PROJECTS
+                })
+                break;
+        }
+        localStorage["dashboard_page"] = this.state.page;
+    }
+
+    list_item(icon:any, page:Pages){
         return (
-            <li className = "bar-side__item" key = {id} >
+            <li className = "bar-side__item" key =  { page } >
                 <FontAwesomeIcon
-                    icon = {icon}
+                    icon = { icon }
+                    onClick = { () => {
+                        this.changeDashboardState( page );
+                    }}
                 />
             </li> 
         )
     }
     render(){
         let menu:Array<any> = [faHome, faBars, faChartLine, faEnvelope, faUserFriends];
-        let id:Array<string> = ["home", "bars", "chart", "envelope", "users"];
+        let id:any[] = [Pages.HOME, Pages.PROJECTS, , Pages.STATISTICS, Pages.MESSAGES, Pages.USERS];
         return (
             <aside className="bar-side">
                 <ul className="bar-side__list_wrapper">
