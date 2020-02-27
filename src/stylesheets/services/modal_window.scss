@@ -1,0 +1,62 @@
+.modal-window{
+    width: 50%;
+    display: block;
+    margin: 1rem auto;
+    &__wrapper{
+        background: #fff;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+    }
+    &__flex-container{
+        display: flex;
+        flex-flow: row nowrap;
+    }
+    &__flex-element{
+        width: 50%;
+        font-size: $font_header;
+        padding: .5rem;
+    }
+    &__form{
+        background: white;
+        color: #313343;
+        &__input, &__button{
+            display: block;
+            padding: .25rem 0;
+            width: 100%;
+            margin: .5rem auto;
+        }
+    }
+    &__text{
+        $text_weight: bold;
+        &_centered{
+            position: fixed;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+        }
+        &_danger{
+            color: orangered;
+            font-weight: $text_weight;
+        }
+        &_info{
+            color: $base_blue;
+            font-weight: $text_weight;
+        }
+    }
+}
+.modal_toggler{
+    padding: 0 1.5rem;
+}
+.styles_closeButton__20ID4{
+    position: absolute;
+    background: transparent;
+    top: 0.01rem;
+    right: 0.01rem;
+    outline: none;
+    cursor: pointer;
+    &:hover, &:focus{
+        outline: thin;
+    }
+}

@@ -1,0 +1,26 @@
+.color{
+    &_base{
+        color: #fff;
+    }
+    &_secondary{
+        color: #7B7F91;
+    }
+    &_blue{
+        color: $base_blue;
+    }
+}
+.text{
+    &_base{
+        font-size: $font_base;
+    }
+    &_header{
+        font-size: $font_header;
+    }
+    &_subheader{
+        font-size: $font_subheader;
+    }
+    // Dates
+    &_small{
+        font-size: $font_base * 0.75;
+    }
+}
