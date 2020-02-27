@@ -1,24 +1,17 @@
 import React, {Component} from 'react';
-import Fetcher from '../../Fetcher/index';
-import {FetchConfig} from '../../Fetcher/config';
+// import Fetcher from '../../Fetcher/index';
+// import {FetchConfig} from '../../Fetcher/config';
 import typy from 'typy';
 import moment from 'moment';
-import Menu from './modal_menu';
+import Menu from './modal/modal_menu';
 
 export interface ServerResponse {
-    data: []
+    data: Array<any>
 }
 
-// string
-// type AssignedVariableType <T> = {
-//     position: T,
-//     description: T,
-//     phone: T,
-//     address: T,
-//     organization: T,
-//     name: T,
-//     email: T
-// }
+type TableProps = {
+    data: Array<any>
+}
 
 type TableStructure = {
     title: string,
@@ -34,53 +27,98 @@ type TableStructure = {
     updated_at: Date
 }
 
-export class Table extends Component <{}, ServerResponse> {
+export class Table extends Component <TableProps, ServerResponse> {
     constructor(props:any){
         super(props);
         this.state = {
-            data: []
+            data: this.props.data
         }
-        this.update();
 
         document.title = "Projects"
     }
 
-    async update(){
-        await this.get_server_data();
+    sort(field: string){
+        switch(field){
+            case "title":
+                return this.state.data.sort((a:TableStructure, b:TableStructure) => {
+                    return a.title.toLowerCase() < b.title.toLowerCase() ? -1 : a.title.toLowerCase()  ? 1 : 0;
+                });
+                break;
+            case "value":
+                return this.state.data.sort((a:TableStructure, b:TableStructure) => {
+                    return a.cost - b.cost
+                });
+            case "deadline":
+                return this.state.data.sort((a:TableStructure, b:TableStructure) => {
+                    return a.deadline < b.deadline ? -1 : a.title.toLowerCase()  ? 1 : 0;
+                });
+            case "time":
+                return this.state.data.sort((a:TableStructure, b:TableStructure) => {
+                    return a.timeSpent - b.timeSpent
+                });
+            case "progress":
+                return this.state.data.sort((a:TableStructure, b:TableStructure) => {
+                    return a.progress - b.progress
+                });
+            case "status":
+                return this.state.data.sort((a:TableStructure, b:TableStructure) => {
+                    return a.status.toLowerCase() < b.status.toLowerCase() ? -1 : a.title.toLowerCase()  ? 1 : 0;
+                });
+        }
     }
 
-    table_field(value:TableStructure){
+    table_field(value:TableStructure, id: number){
+        let row_class:string = "";
+        let main_color:string = "";
+        let secondary_color:string = "";
+
+        if(value.progress === 100){
+            row_class = "table__row_success";
+            main_color = "table__color_main_success";
+            secondary_color = "table__color_secondary_success";
+        }
+        else if (value.progress < 100 && value.progress > 0) {
+            row_class = "table__row_in-progress";
+            main_color = "table__color_main_in-progress";
+            secondary_color = "table__color_secondary_in-progess";
+        }
+        else{
+            row_class = "table__row"
+            main_color = "table__color_main";
+            secondary_color = "table__color_secondary";
+        }
+
         return (
-            <tr className="table__row" key = {value._id} id={ value._id }>
+            <tr className={row_class} key = { id } id ={ value._id }>
                 <td className="table__data">
-                    <p className = "table__color_main">{ value.title }</p>
-                    <p className = "table__color_secondary">{ value.company }</p>
+                    <p className = {main_color}>{ value.title }</p>
+                    <p className = {secondary_color}>{ value.company }</p>
                 </td>
-                <td className="table__data table__color_main" >{ value.cost }</td>
-                <td className="table__data table__color_main">
-                    <p>
+                <td className={main_color + " table__data"} >{ value.cost }</td>
+                <td className = {main_color + " table__data"}>
+                    <p className = {main_color}>
                         <span>{ new Date(value.deadline).getDate() } </span>
                         <span>{ this.humanityMonthName(new Date(value.deadline).getMonth()) } </span>
-                        <span>{ new Date(value.deadline).getFullYear() }</span>
+                        <span className = {secondary_color}>{ new Date(value.deadline).getFullYear() }</span>
                     </p>
-                    <p className = "table__color_secondary"> {moment(value.updated_at).fromNow(true)} </p>
+                    <p className = {main_color}> {moment(value.updated_at).fromNow(true)} </p>
                 </td>
-                <td className="table__data table__color_main">{ value.timeSpent } hours</td>
-                <td className="table__data">
-                    <span className = "table__color_main">{ value.progress }% </span>
+                <td className={main_color + " table__data"}>{ value.timeSpent } hours</td>
+                <td className={main_color + " table__data"}>
+                    <span>{ value.progress }% </span>
                     {this.generateProgress(value)}
                 </td>
-                <td className="table__data table__color_main">{ value.status }</td>
-                <td className="table__data table__img_block">
+                <td className={main_color + " table__data"}>{ value.status }</td>
+                <td className={main_color + " table__data table__img_block"}>
                     <span className = "table__img_block table__element">
                         <img src="https://i.pinimg.com/originals/97/e4/2a/97e42a82fc7911961d3ca55f54d1372c.jpg" className="table__img_block__img" alt="user avatar"/>
                     </span>
-                    <span className = "table__color_main">
+                    <span>
                         {typy(value.assigned, 'name').safeObject}  <br/>
                         {typy(value.assigned, 'position').safeObject}
                     </span>
                 </td>
-                <td className = "modal_toggler">
+                <td className = {main_color + " modal_toggler"}>
                     <Menu id = {value._id}/>
                 </td>
             </tr>
@@ -93,21 +131,6 @@ export class Table extends Component <{}, ServerResponse> {
             return index === month_number
         })
     } 
-
-    async get_server_data(){
-        const response: any = await new Fetcher().get(`https://${FetchConfig.domain}/api/projects`, 'access')
-            .then(response => { return response })
-
-        if(response.status > 199 && response.status < 400){
-            Object.keys(response.data).map((key) => response.data[key]);
-            this.setState({ 
-                data: response.data
-            })
-        }
-        else{
-            alert("Error loading data from server")
-        }
-    }
 
     generateProgress(data:TableStructure){
         if(data.progress < 100){
@@ -124,21 +147,25 @@ export class Table extends Component <{}, ServerResponse> {
     render(){
         return (
             <table className="table">
-                <thead className="table__header">
+                <thead className="table__header" key = "thead">
                     <tr className = "table__color_secondary">
-                        <th>Project title</th>
-                        <th>Value</th>
-                        <th>Deadline</th>
-                        <th>Time spent</th>
-                        <th>Progress</th>
-                        <th>Status</th>
-                        <th>Assigned to</th>
+                        <th className = "table__header__item"
+                            onClick = {() => {
+                                this.sort("title");
+                            }}
+                        >Project title</th>
+                        <th className = "table__header__item">Value</th>
+                        <th className = "table__header__item">Deadline</th>
+                        <th className = "table__header__item">Time spent</th>
+                        <th className = "table__header__item">Progress</th>
+                        <th className = "table__header__item">Status</th>
+                        <th className = "table__header__item">Assigned to</th>
                     </tr>
                 </thead>
-                <tbody className="table__body">
+                <tbody className="table__body" key = "tbody">
                     {
                         this.state.data.map((value: TableStructure, index: number) => 
-                            { return this.table_field(value)}
+                            { return this.table_field(value, index)}
                         )
                     }
                 </tbody>
