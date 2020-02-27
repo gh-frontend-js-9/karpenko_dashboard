@@ -1,0 +1,23 @@
+.loader{
+    font-size: $font_header;
+    color: #fff;
+    
+    &_centered{
+        background: transparent;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    &_icon{
+        display: block;
+        font-size: 3rem;
+    }
+    &_animated{
+        animation-name: spin;
+        animation-iteration-count: infinite;
+        // animation-timing-function: cubic-bezier(0.41, 0.31, 0.56, 0.72);
+        animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        animation-duration: 3s;
+    }
+}

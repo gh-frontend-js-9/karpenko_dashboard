@@ -1,0 +1,32 @@
+.input{
+    &__element{
+        letter-spacing: .1rem;
+        box-shadow: 0.15rem 0.15rem #000;
+        margin: 1rem auto 1rem 0;
+        padding: .5rem;
+        font-size: 1rem;
+        width: 75%;
+        max-width: 100%;
+        outline: none;
+        color: gold;
+        background: rgba(0,0,0,0.75);
+        display: block;
+        border-radius: .5rem;
+        border: .1rem solid gold;
+    }
+    &__group{
+        margin: 1rem auto 1.5rem auto;
+    }
+    &__message{
+
+        &_success{
+            color: green;
+            font-size: $font_base;
+        }
+        &_error{
+            color: orangered;
+            font-size: $font_base;
+            text-align: center;
+        }
+    }
+}

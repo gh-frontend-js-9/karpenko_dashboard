@@ -1,0 +1,36 @@
+.box{
+    &__header{
+        font-size: $font_header;
+        color: #fff;
+    }
+    &__base{
+        color: #444;
+        font-size: $font_base;
+    }
+    &_shadow{
+        -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+        box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+        border-radius: .25rem;
+
+        &_indent{
+            margin: 1rem;
+        }
+        &-rounded{
+            border-radius: 1rem .5rem;
+            padding: .5rem 2rem;
+            -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+            box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+        }
+    }
+}
+.block{
+    &__centered{
+      position: fixed;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      height: fit-content;
+    }
+  }

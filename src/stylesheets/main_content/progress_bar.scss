@@ -1,0 +1,18 @@
+.progress{
+    -webkit-appearance: none;
+    appearance: none;
+    height: .5rem;
+    $border-radius: .5rem;
+
+    &_pending::-webkit-progress-bar, &_success::-webkit-progress-bar{
+        border-radius: $border-radius;
+    }
+    &_success::-webkit-progress-value{
+        background: lawngreen;
+        border-radius: $border-radius;
+    }
+    &_pending::-webkit-progress-value{
+        background: skyblue;
+        border-radius: $border-radius;
+    }
+}

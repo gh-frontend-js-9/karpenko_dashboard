@@ -1,0 +1,93 @@
+// Table
+.table{
+    width: 100%;
+    *{
+        font-size: $font_base;
+    }
+    &__header{
+        &__item{
+            line-height: 1.5;
+            padding: .25rem 0;
+            font-weight: bold;
+            text-align: center;
+            &:hover{
+                cursor: n-resize;
+            }
+        }
+
+        &:hover{
+            background: rgba(0,0,0,0.1);
+        }
+    }
+    &__body{
+        background: rgba(0, 0, 0, 0.1);
+    }
+    &__row{
+        text-align: center;
+        &_success{
+            background: rgba(0, 255, 0, 0.767);
+        }
+        &_in-progress{
+            background: rgba(255, 255, 0, 0.85);
+        }
+    }
+    &__data{
+        line-height: 1.5;
+        font-weight: bold;
+        padding: 1rem 0;
+        display: table-cell;
+        letter-spacing: .025rem;
+        margin: auto;
+        text-align: center;
+        &-center{
+            text-align: center;
+        }
+    }
+    &__img_block{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        margin: 0 .5rem 0 0;
+        &__img{
+            $size: 3rem;
+            width: $size;
+            height: $size;
+            object-fit: cover;
+            margin: auto 1rem;
+            border-radius: 50%;
+        }
+    }
+    &__color{
+        &_main{
+            color: #fff;
+            &_success{
+                color: black;
+            }
+            &_in-progress{
+                color: black;
+            }
+        }
+        &_secondary{
+            color: rgb(177, 177, 177);
+            &_success{
+                color: #113;
+            }
+            &_in-progress{
+                color:red;
+            }
+        }
+    }
+    &__icon{
+        font-size: $font_base;
+        cursor: pointer;
+        padding: auto .25rem;
+        &:hover{
+            color: #fff;
+        }
+        &_danger{
+            &:hover{
+                color: orangered;
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+.form{
+    &__auth{
+      width: 90%;
+    }
+    display: flex;
+    flex-flow: column nowrap;
+    width: fit-content;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(0,0,0,0.75);
+    border: .25rem solid orange;
+    border-radius: 1.5rem;
+    max-width: 100%;
+    &__header{
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+    &__image{
+        width: auto;
+        max-width: 100%;
+        position: relative;
+        border-radius: 1rem;
+        margin: 1rem auto;
+
+        &__item{
+            border-radius: 1rem;
+            width: 100%;
+        }
+    }
+    &__image::before{
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -moz-box-shadow: inset 0 0 1rem 1rem rgba(255,255,255,1);
+        -webkit-box-shadow: inset 0 0 1rem 1rem rgba(255,255,255,1);
+        box-shadow: inset 0 0 1rem 1rem rgba(255,255,255,1);
+    }
+    &__button{
+        color: black;
+        font-weight: bold;
+        padding: .5rem 1.5rem;
+        margin: 1rem auto;
+        background: gold;
+        border-radius: .5rem;
+        width: 75%;
+        outline: none;
+        border: none;
+        font-size: 1rem;
+        display: block;
+        cursor: pointer;
+        &:hover{
+            filter: invert(.15)
+        }
+  }
+}
