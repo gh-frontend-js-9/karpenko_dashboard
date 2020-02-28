@@ -16,9 +16,6 @@ type AuthProps = {
 }
 
 export default class MenuAuth extends Component <AuthProps, AuthState> {
-    // construchrefr(props:any){
-    //     super(props);
-    // }
 
     render(){
         switch(this.props.mode){
@@ -40,7 +37,7 @@ export default class MenuAuth extends Component <AuthProps, AuthState> {
                 return (
                     <div className="link__wrapper">
                         <Link to = "/" className = "link_orange">Login</Link>
-                        <Link to = "/signup" className = "link_orange">Reset password</Link>
+                        <Link to = "/signup" className = "link_orange">Sign Up</Link>
                     </div>
             )
         }
