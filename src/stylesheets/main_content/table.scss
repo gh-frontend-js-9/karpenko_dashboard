@@ -1,6 +1,8 @@
 // Table
 .table{
     width: 100%;
+    border-spacing: unset;
+    border-spacing: 0 .2rem;
     *{
         font-size: $font_base;
     }
@@ -24,14 +26,32 @@
     }
     &__row{
         text-align: center;
+        padding: 0 2rem;
         &_success{
-            background: rgba(0, 255, 0, 0.767);
+            background: rgba(21, 255, 0, 0.35);
         }
         &_in-progress{
-            background: rgba(255, 255, 0, 0.85);
+            background: rgba(255, 238, 0, 0.4);
+        }
+    }
+    &__border{
+        $border: .5rem;
+        border-left: $border solid rgba(255, 255, 255, 0.767);
+        &_success:first-child{
+            border-left: $border solid rgba(0, 255, 0, 0.767);
+        }
+        &_in-progress:first-child{
+            border-left: $border solid rgba(255, 255, 0, 0.85);
         }
     }
     &__data{
+        $border_radius_value: .2rem;
+        &:first-child{
+            border-radius: $border_radius_value 0 0 $border_radius_value; 
+        }
+        &:last-child{
+            border-radius: 0 $border_radius_value $border_radius_value 0;
+        }
         line-height: 1.5;
         font-weight: bold;
         padding: 1rem 0;
@@ -60,21 +80,9 @@
     &__color{
         &_main{
             color: #fff;
-            &_success{
-                color: black;
-            }
-            &_in-progress{
-                color: black;
-            }
         }
         &_secondary{
             color: rgb(177, 177, 177);
-            &_success{
-                color: #113;
-            }
-            &_in-progress{
-                color:red;
-            }
         }
     }
     &__icon{
