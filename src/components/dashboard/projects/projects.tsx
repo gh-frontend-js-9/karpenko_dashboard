@@ -4,6 +4,7 @@ import Action from '../../redux/actions';
 import Preloader from '../preloader';
 import { ProjectsHeader } from '../headers/headers';
 import { Table } from './table';
+import { Header, SideBar } from '../universal_templates';
 
 type ProjectState = {
     projectsAmount: number,
@@ -49,12 +50,18 @@ export default class ProjectComponent extends Component <{}, ProjectState> {
     }
 
     render(){
-        if(this.state.table.length > 1){
+        if(this.state.table.length){
             return [
-                <ProjectsHeader amount = {this.state.projectsAmount}/>,
-                <section className="main_content__section">
-                    <Table data = { this.state.table }/>
-                </section>
+                <Header/>,
+                <div className="main_content__wrapper">
+                    <SideBar/>
+                    <main className="main_content">
+                        <ProjectsHeader amount = {this.state.projectsAmount}/>
+                        <section className="main_content__section">
+                            <Table data = { this.state.table }/>
+                        </section>
+                    </main>
+                </div>
             ]
         }else{
             return <Preloader/>

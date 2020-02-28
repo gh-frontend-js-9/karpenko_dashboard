@@ -6,6 +6,8 @@ import Users from './users/users_list';
 import Messages from './messages/messages';
 import CurrentUser from './current_user/current_user';
 
+import { Header, SideBar } from '../universal_templates';
+
 import Fetcher from '../../Fetcher';
 import Preloader from '../preloader';
 
@@ -65,12 +67,18 @@ export default class Messager extends Component <{}, MessagerState> {
         let { thread } = this.state;
         if(this.state.thread.length){
             return [
-                <MessagesHeader inbox = {thread.length}/>,
-                <section className = "main_content__section">
-                    <Users thread = {this.state.thread}/>
-                    <Messages/>
-                    <CurrentUser/>
-                </section>
+                <Header/>,
+                <div className="main_content__wrapper">
+                    <SideBar/>
+                    <main className="main_content">
+                        <MessagesHeader inbox = {thread.length}/>
+                        <section className = "main_content__section">
+                            <Users thread = {this.state.thread}/>
+                                <Messages/>
+                            <CurrentUser/>
+                        </section>
+                    </main>
+                </div>
             ]
         }else{
             return <Preloader/>
