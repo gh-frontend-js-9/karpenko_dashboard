@@ -27,6 +27,10 @@
             width: 100%;
             margin: .5rem auto;
         }
+        &_rounded-dark{
+            border-radius: 1rem;
+            background: rgba(0,0,0, .75);
+        }
     }
     &__text{
         $text_weight: bold;
@@ -49,14 +53,27 @@
 .modal_toggler{
     padding: 0 1.5rem;
 }
+.styles_modal__gNwvD{
+    max-width: 100%;
+    background: rgba(0,0,0, .75);
+    border-radius: 1rem;
+}
 .styles_closeButton__20ID4{
     position: absolute;
     background: transparent;
     top: 0.01rem;
+    max-width: 100%;
     right: 0.01rem;
     outline: none;
     cursor: pointer;
     &:hover, &:focus{
         outline: thin;
+    }
+}
+.styles_closeIcon__1QwbI{
+    filter: invert(.5);
+    margin: .25rem;
+    &:hover{
+        filter: invert(1);
     }
 }
