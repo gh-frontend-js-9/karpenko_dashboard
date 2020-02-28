@@ -11,7 +11,7 @@ type EditProjectState = {
   open: boolean,
   id: string,
   title: string,
-  cost: string,
+  cost: number,
   deadline: Date,
   pregress: number,
   status: string
@@ -25,7 +25,7 @@ export default class EditModalWindow extends Component <EditProjectProps, EditPr
         open: false,
         id: this.props.id,
         title: "",
-        cost: "",
+        cost: 0,
         deadline: new Date(),
         pregress: 0,
         status: ""
@@ -38,15 +38,9 @@ export default class EditModalWindow extends Component <EditProjectProps, EditPr
     handleChange(event: { target: HTMLInputElement }){
       switch(event.target.name){
         case "cost":
-          if(this.state.cost === event.target.value){
-            this.setState({
-              cost: this.state.cost
-            })
-          }else{
-            this.setState({
-              cost: event.target.value
-            })
-          }
+          this.setState({
+            cost: +event.target.value
+          })
           break;
         case "status":
           this.setState({
@@ -62,7 +56,7 @@ export default class EditModalWindow extends Component <EditProjectProps, EditPr
       // alert(this.state.id)
 
       new Fetcher().put(`api/projects/${this.state.id}`, 'access', {
-        "cost": this.state.cost,
+        "cost": `$${this.state.cost}`,
         "status": this.state.status
       })
     }

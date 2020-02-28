@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch, faBell, faChevronDown, faPlus, faHome, faBars, faChartLine, faEnvelope, faUserFriends} from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
-import { Pages, DashboardState } from '../Dashboard';
 
 // Dashboard header
 export class Header extends Component{
@@ -45,7 +44,7 @@ export class Header extends Component{
 // Dashboard side nav-menu
 export class SideBar extends Component {
 
-    list_item(icon:any, page:Pages, link:string){
+    list_item(icon:any, page:string, link:string){
         return (
             <li className = "bar-side__item" key =  { page }>
                 <Link to = { link }
@@ -60,7 +59,7 @@ export class SideBar extends Component {
     }
     render(){
         let menu:Array<any> = [faHome, faBars, faChartLine, faEnvelope, faUserFriends];
-        let id:any[] = [Pages.HOME, Pages.PROJECTS, Pages.STATISTICS, Pages.MESSAGES, Pages.USERS];
+        let id:any[] = ["HOME", "PROJECTS", "STATISTICS", "MESSAGES", "USERS"];
 
         const dasboard_link_prefix:string = "/dashboard";
         let links:Array<string> = [

@@ -21,6 +21,8 @@ export default class Login extends Component<{}, LoginStateItem> {
             confirmationPassword: ""
         }
 
+        document.title = "Reset"
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }

@@ -9,7 +9,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 export type ProjectState = {
     title: string,
     company: string,
-    cost: string,
+    cost: number,
     deadline: Date,
     assigned: string,
     open: boolean,
@@ -23,7 +23,7 @@ export class AddModalWindow extends Component <{}, ProjectState>{
         open: false,
         title: "",
         company: "",
-        cost: "",
+        cost: 0,
         deadline: new Date(),
         assigned: ""
       }
@@ -52,7 +52,7 @@ export class AddModalWindow extends Component <{}, ProjectState>{
         }
         case "cost":{
           this.setState({
-            cost: event.target.value
+            cost: +event.target.value
           });
           break;
         }
@@ -72,7 +72,7 @@ export class AddModalWindow extends Component <{}, ProjectState>{
       new Fetcher().post(`api/projects`, 'no_token', {
         title: this.state.title,
         company: this.state.company,
-        cost: this.state.cost,
+        cost: `$${this.state.cost}`,
         deadline: this.state.deadline,
         assigned: user_id
       })

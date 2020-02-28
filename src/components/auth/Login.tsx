@@ -60,8 +60,8 @@ export default class Login extends Component<{}, LoginStateItem> {
                 new Action().add({
                     token: FetchConfig.key
                 })
-                this.redirect();
                 localStorage.setItem("user_id", response.data._id);
+                this.redirect();
             }
         })
         .catch(error => {

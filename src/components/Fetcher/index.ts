@@ -17,7 +17,7 @@ export default class Fetcher{
             case 'no_token': {
                 return {
                     "Content-Type": "application/json",
-                    "x-auth-token": null
+                    // "x-aut-token": null
                 }
             }
             case 'none':
@@ -47,9 +47,10 @@ export default class Fetcher{
             method: 'DELETE'
         })
     }
-    put(path: string, mode: string, params: any){
+    put(path: string, mode: string, params: object){
         return axios({
             url: `https://${FetchConfig.domain}/${path}`,
+            method: 'PUT',
             headers: this.token(mode),
             data: JSON.stringify(params)
         })

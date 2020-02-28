@@ -5,7 +5,6 @@ import './App.scss';
 import * as serviceWorker from './serviceWorker';
 import Navigation from './components/navigation';
 import { config } from 'dotenv';
-// import * from 'dotenv'
 
 // Redux
 import { Provider } from 'react-redux';
@@ -15,7 +14,7 @@ config();
 
 ReactDOM.render(
     <Provider key = "navigation_store" store = { store }>
-        <Navigation/>
+        <Navigation key = "navigation_links" />
     </Provider>,
     document.getElementById('root')
 )
