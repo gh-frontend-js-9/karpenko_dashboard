@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch, faBell, faChevronDown, faPlus, faHome, faBars, faChartLine, faEnvelope, faUserFriends} from "@fortawesome/free-solid-svg-icons";
-import Actions from '../redux/actions';
+import { Link } from 'react-router-dom';
 import { Pages, DashboardState } from '../Dashboard';
 
 // Dashboard header
@@ -43,80 +43,40 @@ export class Header extends Component{
 }
 
 // Dashboard side nav-menu
-export class SideBar extends Component<{}, DashboardState> {
+export class SideBar extends Component {
 
-    constructor(props:any){
-        super(props);
-
-        new Actions().change_dashboard_page({
-            page: Pages.PROJECTS
-        })
-
-        this.state = {
-            page: Pages.PROJECTS
-        }
-
-        localStorage.setItem("dashboard_page", Pages.PROJECTS);
-    }
-
-    convertStringToPages(key:string){
-        switch(key){
-            case "projects":
-                return Pages.PROJECTS
-            case "messages":
-                return Pages.MESSAGES
-            case "statistics":
-                return Pages.STATISTICS
-            case "home":
-                return Pages.HOME
-            case "users":
-                return Pages.USERS
-        }
-    }
-
-    changeDashboardState(page: Pages){
-        console.log(this.state.page)
-        switch(page){
-            case Pages.PROJECTS:
-                this.setState({
-                    page: Pages.PROJECTS
-                })
-                break;
-            case Pages.MESSAGES:
-                this.setState({
-                    page: Pages.MESSAGES
-                })
-                break;
-            default:
-                this.setState({
-                    page: Pages.PROJECTS
-                })
-                break;
-        }
-        localStorage["dashboard_page"] = this.state.page;
-    }
-
-    list_item(icon:any, page:Pages){
+    list_item(icon:any, page:Pages, link:string){
         return (
-            <li className = "bar-side__item" key =  { page } >
-                <FontAwesomeIcon
-                    icon = { icon }
-                    onClick = { () => {
-                        this.changeDashboardState( page );
-                    }}
-                />
+            <li className = "bar-side__item" key =  { page }>
+                <Link to = { link }
+                    className = "bar-side__item"
+                >
+                    <FontAwesomeIcon
+                        icon = { icon }
+                    />
+                </Link>
             </li> 
         )
     }
     render(){
         let menu:Array<any> = [faHome, faBars, faChartLine, faEnvelope, faUserFriends];
-        let id:any[] = [Pages.HOME, Pages.PROJECTS, , Pages.STATISTICS, Pages.MESSAGES, Pages.USERS];
+        let id:any[] = [Pages.HOME, Pages.PROJECTS, Pages.STATISTICS, Pages.MESSAGES, Pages.USERS];
+
+        const dasboard_link_prefix:string = "/dashboard";
+        let links:Array<string> = [
+            dasboard_link_prefix + "",
+            dasboard_link_prefix + "/projects",
+            dasboard_link_prefix + "",
+            dasboard_link_prefix + "/messager",
+            dasboard_link_prefix + ""
+        ]
+        
         return (
             <aside className="bar-side">
                 <ul className="bar-side__list_wrapper">
                     {
                         menu.map((value,index) => {
-                           return this.list_item(value, id[index]);
+                           return this.list_item(value, id[index], links[index]);
                         })
                     }
                 </ul>
