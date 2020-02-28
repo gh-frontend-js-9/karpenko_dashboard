@@ -4,7 +4,6 @@ import {faTimes, faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 import EditModalButton from './edit_component';
 import { AddModalWindow } from './add_component';
 import Fetcher from '../../../Fetcher/index';
-import {FetchConfig} from '../../../Fetcher/config';
 
 type HoverState = {
     hover: boolean,
@@ -18,7 +17,7 @@ class ModalMenu extends Component <HoverProps, {}>{
 
     removeElement = () => {
         let id:string = this.props.id;
-        new Fetcher().delete(`https:${FetchConfig.domain}/api/projects/${id}`, 'no_token')
+        new Fetcher().delete(`api/projects/${id}`, 'no_token')
             .then(response => {
                 if(response.status > 199 && response.status < 400){
                     alert("Successfully remove element");
@@ -32,7 +31,7 @@ class ModalMenu extends Component <HoverProps, {}>{
         return (
             <div>
                 <AddModalWindow/>
-                <EditModalButton/>
+                <EditModalButton id = { this.props.id }/>
                 <div className = "table__data-center">
                     <FontAwesomeIcon
                         onClick = { this.removeElement }
@@ -68,10 +67,10 @@ export default class HoverMenu extends Component <HoverProps, HoverState> {
         return (         
             <div onMouseLeave = { this.onLeave } >
                 {hover ?
-                    (<ModalMenu id= {id}/>) : (
+                    (<ModalMenu id= { id }/>) : (
                         <FontAwesomeIcon
                             onMouseEnter = { this.onHover }
-                            icon = {faEllipsisV}
+                            icon = { faEllipsisV }
                             className = "table__color_main_success table__icon __close_btn"
                         />
                     )

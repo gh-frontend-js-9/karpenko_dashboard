@@ -43,7 +43,6 @@ export class Table extends Component <TableProps, ServerResponse> {
                 return this.state.data.sort((a:TableStructure, b:TableStructure) => {
                     return a.title.toLowerCase() < b.title.toLowerCase() ? -1 : a.title.toLowerCase()  ? 1 : 0;
                 });
-                break;
             case "value":
                 return this.state.data.sort((a:TableStructure, b:TableStructure) => {
                     return a.cost - b.cost
@@ -69,57 +68,55 @@ export class Table extends Component <TableProps, ServerResponse> {
 
     table_field(value:TableStructure, id: number){
         let row_class:string = "";
-        let main_color:string = "";
-        let secondary_color:string = "";
+        let main_color:string = "table__color_main";
+        let secondary_color:string = "table__color_secondary";
+        let indicator_border:string = "";
 
         if(value.progress === 100){
             row_class = "table__row_success";
-            main_color = "table__color_main_success";
-            secondary_color = "table__color_secondary_success";
+            indicator_border = "table__border_success";
         }
         else if (value.progress < 100 && value.progress > 0) {
             row_class = "table__row_in-progress";
-            main_color = "table__color_main_in-progress";
-            secondary_color = "table__color_secondary_in-progess";
+            indicator_border = "table__border_in-progress";
         }
         else{
             row_class = "table__row"
-            main_color = "table__color_main";
-            secondary_color = "table__color_secondary";
+            indicator_border = "table__border"
         }
 
         return (
-            <tr className={row_class} key = { id } id ={ value._id }>
-                <td className="table__data">
-                    <p className = {main_color}>{ value.title }</p>
-                    <p className = {secondary_color}>{ value.company }</p>
+            <tr className = { "table__row " +  row_class } key = { id } id = { value._id }>
+                <td className = { "table__data " + indicator_border }>
+                    <p className = { main_color }>{ value.title }</p>
+                    <p className = { secondary_color }>{ value.company }</p>
                 </td>
-                <td className={main_color + " table__data"} >{ value.cost }</td>
-                <td className = {main_color + " table__data"}>
+                <td className={ main_color + " table__data" } >{ value.cost }</td>
+                <td className = { main_color + " table__data" }>
                     <p className = {main_color}>
                         <span>{ new Date(value.deadline).getDate() } </span>
                         <span>{ this.humanityMonthName(new Date(value.deadline).getMonth()) } </span>
-                        <span className = {secondary_color}>{ new Date(value.deadline).getFullYear() }</span>
+                        <span className = { secondary_color }>{ new Date(value.deadline).getFullYear() }</span>
                     </p>
-                    <p className = {main_color}> {moment(value.updated_at).fromNow(true)} </p>
+                    <p className = { main_color }> { moment(value.updated_at).fromNow(true) } </p>
                 </td>
-                <td className={main_color + " table__data"}>{ value.timeSpent } hours</td>
-                <td className={main_color + " table__data"}>
+                <td className={ main_color + " table__data" }>{ value.timeSpent } hours</td>
+                <td className={ main_color + " table__data" }>
                     <span>{ value.progress }% </span>
-                    {this.generateProgress(value)}
+                    { this.generateProgress(value) }
                 </td>
-                <td className={main_color + " table__data"}>{ value.status }</td>
-                <td className={main_color + " table__data table__img_block"}>
+                <td className={ main_color + " table__data"}>{ value.status }</td>
+                <td className={ main_color + " table__data table__img_block" }>
                     <span className = "table__img_block table__element">
                         <img src="https://i.pinimg.com/originals/97/e4/2a/97e42a82fc7911961d3ca55f54d1372c.jpg" className="table__img_block__img" alt="user avatar"/>
                     </span>
                     <span>
-                        {typy(value.assigned, 'name').safeObject}  <br/>
-                        {typy(value.assigned, 'position').safeObject}
+                        { typy(value.assigned, 'name').safeObject } <br/>
+                        { typy(value.assigned, 'position').safeObject }
                     </span>
                 </td>
-                <td className = {main_color + " modal_toggler"}>
-                    <Menu id = {value._id}/>
+                <td className = { main_color + " modal_toggler" }>
+                    <Menu id = { value._id }/>
                 </td>
             </tr>
         )
@@ -165,7 +162,7 @@ export class Table extends Component <TableProps, ServerResponse> {
                 <tbody className="table__body" key = "tbody">
                     {
                         this.state.data.map((value: TableStructure, index: number) => 
-                            { return this.table_field(value, index)}
+                            { return this.table_field(value, index) }
                         )
                     }
                 </tbody>
