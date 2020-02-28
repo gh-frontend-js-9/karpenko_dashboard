@@ -3,26 +3,19 @@ import ReactDOM from 'react-dom';
 import './stylesheets/index.scss';
 import './App.scss';
 import * as serviceWorker from './serviceWorker';
-// Components
-import Login from './components/auth/Login';
-import SignUp from './components/auth/SignUp';
-import Reset from './components/auth/Reset';
-import Dashboard from './components/Dashboard';
+import Navigation from './components/navigation';
+import { config } from 'dotenv';
+// import * from 'dotenv'
+
 // Redux
-import { Provider } from 'react-redux'
-import store from './components/redux/store/index'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './components/redux/store/index';
+
+config();
 
 ReactDOM.render(
-    <Provider key = "navigation_store" store = {store}>
-        <BrowserRouter key = "navigation">
-            <Switch >
-                <Route exact path = "/" component = { Login } key = "login" />
-                <Route path = "/reset" component = { Reset } key = "reset password" />
-                <Route path = "/signup" component = { SignUp } key = "signup" />
-                <Route path = "/dashboard" component = { Dashboard } key = "dashboard" />
-            </Switch>
-        </BrowserRouter>
+    <Provider key = "navigation_store" store = { store }>
+        <Navigation/>
     </Provider>,
     document.getElementById('root')
 )
