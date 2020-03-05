@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, SideBar } from './universal_templates';
+import { Header, SideBar } from './universal_templates/frame/universal_templates';
 
 
 export default class Stub extends Component {

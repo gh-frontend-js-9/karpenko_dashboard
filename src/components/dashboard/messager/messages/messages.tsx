@@ -11,6 +11,9 @@ import { AllThreadStructure } from '../types';
 type MessagesState = {
     data: Array<AllThreadStructure>
 }
+type MessageProps = {
+    data: Array<AllThreadStructure>;
+}
 
 export default class Messages extends Component <{}, MessagesState> {
 

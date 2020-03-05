@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSearch, faBell, faChevronDown, faPlus, faHome, faBars, faChartLine, faEnvelope, faUserFriends} from "@fortawesome/free-solid-svg-icons";
+import {faSearch, faBell, faPlus, faHome, faBars, faChartLine, faEnvelope, faUserFriends} from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
+import LogoutModalWindow from './logout_modal_component';
 
+
+export const base_class:string = "bar-top__user_bar__item";
 // Dashboard header
 export class Header extends Component{
 
     render(){
-        const base_class:string = "bar-top__user_bar__item";
+        
         return (
             <header className = "bar-top">
                 <div className = "bar-top__logo">virtus</div>
@@ -30,10 +33,8 @@ export class Header extends Component{
                     />
                     <span className = {base_class}>
                         <img src="https://s.yimg.com/ny/api/res/1.2/wtzeNGYJlWn1YCuOXKy3DQ--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/http://media.zenfs.com/en/homerun/feed_manager_auto_publish_494/69212554e5b1b94435cb5d1f9f0d2fbd" alt="user avatar" className="bar-top__user_bar__avatar"/>
-                        <FontAwesomeIcon
-                            icon = {faChevronDown}
-                            className = {base_class}
-                        />
+                        {/* Logout */}
+                        <LogoutModalWindow/>
                     </span>
                 </div>
             </header>

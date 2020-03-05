@@ -68,6 +68,7 @@ export type AllThreadStructure = {
     users: UserDataStructure,
     _id: string,
     created_at: Date,
+    updated_at: Date,
     thread: string,
     body: string
 }

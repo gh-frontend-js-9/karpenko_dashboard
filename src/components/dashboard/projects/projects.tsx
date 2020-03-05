@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Fetcher from '../../Fetcher';
-import Action from '../../redux/actions';
-import Preloader from '../preloader';
+// import Action from '../../redux/actions';
+import Preloader from '../universal_templates/preloader';
 import { ProjectsHeader } from '../headers/headers';
 import { Table } from './table';
-import { Header, SideBar } from '../universal_templates';
+import { Header, SideBar } from '../universal_templates/frame/universal_templates';
 
 type ProjectState = {
     projectsAmount: number,
@@ -31,9 +31,9 @@ export default class ProjectComponent extends Component <{}, ProjectState> {
                 projectsAmount: response.data.length,
                 table: response.data
             })
-            new Action().add({
-                projectsAmount: response.data.length
-            })
+            // new Action().add({
+            //     projectsAmount: response.data.length
+            // })
         }
         else{
             alert("Error loading data from server")

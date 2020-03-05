@@ -6,10 +6,10 @@ import Users from './users/users_list';
 import Messages from './messages/messages';
 import CurrentUser from './current_user/current_user';
 
-import { Header, SideBar } from '../universal_templates';
+import { Header, SideBar } from '../universal_templates/frame/universal_templates';
 
 import Fetcher from '../../Fetcher';
-import Preloader from '../preloader';
+import Preloader from '../universal_templates/preloader';
 
 export default class Messager extends Component <{}, MessagerState> {
     constructor(props: any){
@@ -52,16 +52,16 @@ export default class Messager extends Component <{}, MessagerState> {
         }
     }
 
-    messagerComponent(thread: Array<any>){
-        return [
-            <MessagesHeader inbox = {thread.length}/>,
-            <section className = "main_content__section">
-                <Users thread = {this.state.thread}/>
-                <Messages/>
-                <CurrentUser/>
-            </section>
-        ]
-    }
+    // messagerComponent(thread: Array<any>){
+    //     return [
+    //         <MessagesHeader inbox = {thread.length}/>,
+    //         <section className = "main_content__section">
+    //             <Users thread = {this.state.thread}/>
+    //             <Messages/>
+    //             <CurrentUser/>
+    //         </section>
+    //     ]
+    // }
 
     render(){
         let { thread } = this.state;
