@@ -3,6 +3,7 @@ import fetcher from "../Fetcher/index";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 import Menu, { HomePages } from './Menu';
+import { Redirect } from "react-router-dom";
 
 interface SignUpStateItem {
     email: string,
@@ -31,12 +32,13 @@ export default class SignUp extends Component<{}, SignUpStateItem> {
         let {email, password} = this.state;
         const Fetcher = new fetcher();
         Fetcher.post(`api/users`, "auth", {
+            name: this.state.name,
             email: email,
             password: password
         }).then(response => {
             console.log(response)
             if(response.status > 199 && response.status < 400){
-                // this.props.handleSuccessfulAdmin(response.data);
+                this.redirectToHome();
             }
         })
         .catch(error => {
@@ -44,6 +46,11 @@ export default class SignUp extends Component<{}, SignUpStateItem> {
         })
         
     }
+
+    redirectToHome(){
+        return <Redirect to = "/"/>
+    }
+
     handleChange(event: { target: HTMLInputElement }){
         switch(event.target.name){
             case "password": {

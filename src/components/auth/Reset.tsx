@@ -29,15 +29,16 @@ export default class Login extends Component<{}, LoginStateItem> {
 
     handleSubmit(event: React.FormEvent){
         event.preventDefault();
-        let {email, password} = this.state;
+        let {email, password, confirmationPassword} = this.state;
         const Fetcher = new fetcher();
-        Fetcher.post(`api/users`, "auth", {
+        Fetcher.post(`api/users/reset_password`, "auth", {
             email: email,
-            password: password
+            password: password,
+            confirmationPassword: confirmationPassword
         }).then(response => {
             console.log(response)
             if(response.status > 199 && response.status < 400){
-                // this.props.handleSuccessfulAdmin(response.data);
+                alert('Success')
             }
         })
         .catch(error => {
@@ -47,15 +48,15 @@ export default class Login extends Component<{}, LoginStateItem> {
     }
     handleChange(event: { target: HTMLInputElement }){
         switch(event.target.name){
-            case "password": {
-                this.setState({
-                    password: event.target.value
-                })
-                break;
-            }
             case "email": {
                 this.setState({
                     email: event.target.value
+                })
+                break;
+            }
+            case "password": {
+                this.setState({
+                    password: event.target.value
                 })
                 break;
             }
@@ -90,20 +91,20 @@ export default class Login extends Component<{}, LoginStateItem> {
                     <input 
                         className="input__element input__group"
                         type="password" 
-                        name="confirmationPassword"
-                        placeholder="Name"
-                        autoComplete = ""
-                        value={this.state.confirmationPassword}
-                        onChange={this.handleChange}
-                    />
-                    <input 
-                        className="input__element input__group"
-                        type="password" 
                         name="password" 
                         value={this.state.password}
                         placeholder="Password"
                         onChange={this.handleChange}
                         autoComplete="password"
+                    />
+                    <input 
+                        className="input__element input__group"
+                        type="password" 
+                        name="confirmationPassword"
+                        placeholder="ConfirmationPassword"
+                        autoComplete = ""
+                        value={this.state.confirmationPassword}
+                        onChange={this.handleChange}
                     />
                     <button 
                         className="form__button"

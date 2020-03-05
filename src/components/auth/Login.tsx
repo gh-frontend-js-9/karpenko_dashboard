@@ -1,15 +1,11 @@
-import React , {Component} from "react";
-import fetcher from "../Fetcher/index";
-import { FetchConfig } from "../Fetcher/config";
+import React , { Component } from "react";
+import Fetcher from "../Fetcher/index";
 import Menu, { HomePages } from './Menu';
-import Action from '../redux/actions';
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
-import {
-    Redirect
-  } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 type LoginStateItem = {
     email: string,
@@ -22,7 +18,10 @@ export type AuthState = {
 }
 
 export default class Login extends Component<{}, LoginStateItem> {
-    constructor(props:any){
+    private email: React.RefObject<HTMLInputElement>;
+    private password: React.RefObject<HTMLInputElement>;
+
+    constructor(props:{}){
         super(props);
 
         this.state = {
@@ -31,10 +30,13 @@ export default class Login extends Component<{}, LoginStateItem> {
             isAuth: false
         }
 
+        this.email = React.createRef();
+        this.password = React.createRef();
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
-        document.title = "Login"
+        document.title = "Login";
     }
     
     redirect(){
@@ -47,9 +49,8 @@ export default class Login extends Component<{}, LoginStateItem> {
 
     handleSubmit(event: React.FormEvent){
         event.preventDefault();
-        let {email, password} = this.state;
-        const Fetcher = new fetcher();
-        Fetcher.post(`api/users/login`, "none", {
+        let { email, password } = this.state;
+        new Fetcher().post(`api/users/login`, "none", {
             email: email,
             password: password
         }).then(response => {
@@ -57,10 +58,9 @@ export default class Login extends Component<{}, LoginStateItem> {
                 this.setState({
                     isAuth: true
                 })
-                new Action().add({
-                    token: FetchConfig.key
-                })
+                // hooks i cant use in class!
                 localStorage.setItem("user_id", response.data._id);
+                // 
                 this.redirect();
             }
         })
@@ -68,6 +68,7 @@ export default class Login extends Component<{}, LoginStateItem> {
             alert(error)
         })
     }
+
     handleChange(event: { target: HTMLInputElement }){
         switch(event.target.name){
             case "password": {
@@ -84,6 +85,7 @@ export default class Login extends Component<{}, LoginStateItem> {
             }
         }
     }
+
     render(){
         if(this.state.isAuth) {
             return this.redirect();
@@ -97,23 +99,25 @@ export default class Login extends Component<{}, LoginStateItem> {
                         color="gold"
                     />
                 </div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={ this.handleSubmit }>
                     <input 
-                        className="input__element input__group"
-                        type="email" 
-                        name="email" 
-                        value={this.state.email}
-                        placeholder="Email"
-                        onChange={this.handleChange}
+                        className = "input__element input__group"
+                        type = "email" 
+                        name = "email" 
+                        value = { this.state.email }
+                        placeholder = "Email"
+                        onChange = { this.handleChange }
+                        ref = { this.email }
                     />
                     <input 
-                        className="input__element input__group"
-                        type="password" 
-                        name="password" 
-                        value={this.state.password}
-                        placeholder="Password"
-                        onChange={this.handleChange}
-                        autoComplete="password"
+                        className = "input__element input__group"
+                        type = "password" 
+                        name = "password" 
+                        value = { this.state.password }
+                        placeholder = "Password"
+                        onChange = { this.handleChange }
+                        autoComplete = "password"
+                        ref = { this.password }
                     />
                     <button 
                         className="form__button"
@@ -121,7 +125,7 @@ export default class Login extends Component<{}, LoginStateItem> {
                         Log in
                     </button>
                 </form>
-                <Menu mode = {HomePages.LOGIN}/>
+                <Menu mode = { HomePages.LOGIN }/>
             </div>
         )
     }
