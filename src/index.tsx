@@ -7,8 +7,8 @@ import Navigation from './components/navigation';
 import { config } from 'dotenv';
 
 // Redux
+import { store } from './components/redux/reducers';
 import { Provider } from 'react-redux';
-import store from './components/redux/store/index';
 
 config();
 
